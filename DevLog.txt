@@ -72,3 +72,6 @@ Cool demo of a bunch of new things in JavaScript https://www.youtube.com/watch?v
 JohnnyFive for Ardunio development
 
 moving the queries to a promise structure, incorporating some higher order functions
+
+>>29 July 2017 <<
+Finally figured out promises structure and ansych loading. Moving code to GitHub to get comfortable there as well. 
