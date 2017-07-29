@@ -87,26 +87,22 @@ function updateDatabase(){
 }
 
 function initializeXY() {	
-	//update the board price range
-	field.setPriceRange();
+
+	field.setPriceRange(); //needs to be set prior to updating product coordinates
+	for (c of companies){
+		c.initializeProducts(field);  //update coordinates for products on all companies
+	}
 	
+
 	//figure out which company this user wants to be
 	//value set in first screen
 	let tmp = parseInt(window.sessionStorage.getItem("eDecision.currentCompany"));
 	companyInFocus = getCompanyByID(tmp);
 	
-	// //figure out which scenario and round are we in
-	// control.scenarioID = parseInt(window.sessionStorage.getItem("eDecision.currentScenario"));
-// 	control.scenarioRound = parseInt(window.sessionStorage.getItem("eDecision.currentRound"));
-// 	companyInFocus.turn = control.scenarioRound;
-// 	//
-	//
-	
-	//update pixel locations for all products on all companies
-	for (let i = 0; i < companies.length; i++) {
-		companies[i].initializeProducts(field);
-	}
-
+	//figure out which scenario and round are we in
+	control.scenarioID = parseInt(window.sessionStorage.getItem("eDecision.currentScenario"));
+	control.scenarioRound = parseInt(window.sessionStorage.getItem("eDecision.currentRound"));
+	companyInFocus.turn = control.scenarioRound;
 }
 
 function switchPlayers() {

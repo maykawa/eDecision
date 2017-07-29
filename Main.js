@@ -26,50 +26,30 @@ var TXTSIZE = 13;
 
 
 function setup() {
-	//set up the window
-	canvasElement = createCanvas(windowWidth - 100, windowHeight - 50);
-	setUpGUIAreas(); //set up bounding boxs for each areas
 
+	canvasElement = createCanvas(windowWidth - 100, windowHeight - 50);
+	setUpGUIAreas(); //bounding boxes for each areas
+	
+	
+	//set up the main objects
 	inputField = new textFieldInput(50, 500); //input field for small dialogs
 	control = new GameControl(ledgerbb.x, ledgerbb.y + ledgerbb.h - 100, ledgerbb.w, 45);
-
 	//FIXME: can we create a field without dependicies?
 	field = new Board(fieldbb.x, fieldbb.y, fieldbb.w, fieldbb.h);
-
-	//set up input module
 	addArea = new ProductAddInput(planbb.x, planbb.y, planbb.w, planbb.h);
-
-	//set up trash module
 	retireArea = new ProductRetireArea(trashbb.x, trashbb.y, trashbb.w, trashbb.h);
-
-	//set up company module
 	companyInfo = new CompanyArea(ledgerbb.x, ledgerbb.y, ledgerbb.w, ledgerbb.h);
 
 
-	//set up customer array
-	//setUpCustomers();
-
-	//plceholder for companies to load
-	// let CompanyIDs = [1, 2, 3];
-	//
-	// setUpCos(CompanyIDs)
-	// 	.then(setProds)
-	// 	.then(cos => initializeXY());
-
-
-	let CompanyIDs = [1, 2, 3];
-	//once companies are identified, need to pull all the appropriate customers, now we just assume all customers
-
+	//set up the data
+	let CompanyIDs = [1, 2, 3]; //temp list of company ids to load
+	//TODO: pull customers from companies loaded, now we just assume all customers
 	setUpCos(CompanyIDs)
 		.then(setProds)
 		.then(() => setUpCustomers())
 		.then(() => initializeXY());
 
-
-	//clean up 
-	//FIXME: can we create a field without dependicies?
-
-	//-----------
+	
 	//god functions	
 	switchBtn = createButton('switch player');
 	switchBtn.mousePressed(switchPlayers);
@@ -80,6 +60,7 @@ function setup() {
 	switchBtn = createButton('update database');
 	switchBtn.mousePressed(updateDatabase);
 }
+
 
 function setUpCos(companyIDs) {
 	let popCo = [];
