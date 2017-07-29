@@ -1,0 +1,74 @@
+Executive Decision Log
+
+>> 24 June, 2017 <<
+Decide to start with local set up. (mySQL + PHP + javascript…)
+
+To set up local apache and php servers
+https://discussions.apple.com/docs/DOC-11237
+
+localhost all messed up!
+
+system level web root is here
+/Library/WebServer/Documents/
+
+to set up local development environment
+https://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working-on-osx-10-11-el-capitan/
+identified problem using:  apachectl configtest
+
+php 5.5.38
+mysql 5.6.17
+
+configured mhpmyadmin at ~mayfield/Sites via config.inc.php file
+127.0.0.1
+auth - root:2growth
+
+>> 25 June, 2017 <<
+keyboard busted need to replace. Worked on JS part first will come back to database later
+
+>> 29 June, 2017 <<
+a reference for using p5 outside of canvas
+https://github.com/processing/p5.js/wiki/Beyond-the-canvas
+
+>> 30 June, 2017 <<
+UI close, will use the triptych view for first round. Overlaying DOM elements on top of canvas. A hack, but should work.
+Moved to new version of files. Will need to rework most of it to get the interaction to work.
+
+>> 1 July 2017 <<
+Major refactoring of product, field, sketch(main), company. Preparing for multiple companies to be shown. 
+Next to do is to fix adding and removing products from the field. 
+Then build out the company ledger object with the company (balance, burn rate,)
+then build out history datatable and the replay features.
+
+>> 3 July 2017 <<
+Most of day spent fixing interaction of changing the status of the product(adding and retiring), a little bit on the color scheme
+
+>> 5 July 2017 <<
+Created multiplayer functions and added revenue and spend calculations. Need to move to using the database now for persistence. Once database is set up can return to cleaner state management of the game and other interaction mechanics. Need to test soon.
+
+>> 8 July 2017 <<
+working on mysql now. needed to set up shortcut path for invoking mysql from command line. did it by editing .bash_profile in home directory with this line: export PATH="/usr/local/mysql/bin:$PATH”. Seems to have done the trick.
+
+>> 9 July 2017 <<
+Have figured out how to do a simple mysql query using a php script with parameters. Here is a good ajax reference https://www.w3schools.com/xml/ajax_php.asp and a reference to php manual http://php.net/manual/en/
+
+>> 10 July 2017 <<
+Must move to loading the file through local server to get db access to work. Problems with caching javascript, changed preferences in Chrome seems to have fixed it.
+
+Integrated database retrieval and remove all initial fake data. Having trouble with asynchronous calls and game state.
+
+Big problem with calculating price ranges and the subsequent revenues. Needs to be completely reworked.
+
+>> 11 July 2017 <<
+redirecting efforts to get the game play working. Setting up initial data can be done easily enough on the database directly. found a way to use local storage for session data. more info here http://diveintohtml5.info/storage.html. Squashed many database update bugs. Can now add new products via planning area and retire old ones. 
+
+Still need to coordinate updates and progress of the scenario now. Add in the historical capture as well. Need to work towards the simplest game play to get some feedback. (migrating to the cloud, yuck!).
+
+>> 12 July 2017 <<
+Interesting npm module for tracking database changes: https://www.npmjs.com/package/mysql-events
+
+>> 17 July 2017 <<
+Cool demo of a bunch of new things in JavaScript https://www.youtube.com/watch?v=WTqr7m4J648
+
+JohnnyFive for Ardunio development
+
+moving the queries to a promise structure, incorporating some higher order functions

@@ -1,0 +1,41 @@
+Notes:
+
+Need to create a game from scratch.
+0. game parameters
+	- number of players
+	- type of game (round robin, simultaneous, automatic)
+1. customers/market conditions
+2. your company
+3. its products
+4. starting conditions for the game
+5. begin
+
+
+MVP
+- add products to field
+- remove products from field
+- pull data from database
+- save history of changes to database
+- calculate spend and revenue for each round
+- introduce obstacles and conditions for each round
+-
+
+Next Iteration
+- multiplayers at same time, can only manipulate yours
+- watcher to track rounds and declare a winner when round is over
+- add all code to git hub for tracking
+
+Feature Ideas
+- make the company title a pull down to select different companies
+- drag product on to and off of board. Need to directly edit the product name
+- make the product development time based. Add it to the side and cannot bring it to market until ready!!. It consumes money when in development. Like the doughnuts
+-
+
+
+Choices to get to MVP
+- make the game work for 6 teams/companies
+
+
+Frameworks/libraries
+- React.js
+- Angular.js - Google
