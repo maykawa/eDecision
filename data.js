@@ -61,7 +61,21 @@ function queryModifyDb(SQLString) {
 //TODO: change the functions below to work with the database data directly?
 
 function getAllProductsInTier(custID, pmin, pmax) {
-	//given a customer and tier return # of products
+	//given a customer and price return # of products
+	let maxCount = 0;
+	for (let i = 0; i < companies.length; i++) {
+		for (let j = 0; j < companies[i].products.length; j++) {
+			let prod = companies[i].products[j];
+			if (prod.customer == custID && prod.status == 'ACTIVE' && prod.price >= pmin && prod.price <= pmax) {
+				maxCount++;
+			}
+		}
+	}
+	return maxCount;
+}
+
+function getAllProductsInTier2(custID, pmin, pmax) {
+	//given a customer and tier range return # of products
 	let maxCount = 0;
 	for (let i = 0; i < companies.length; i++) {
 		for (let j = 0; j < companies[i].products.length; j++) {
@@ -83,27 +97,24 @@ function getPriceTierRange() {
 	// return ran / 2; //this provides upper and lower bound
 }
 
-function getMaxPrice() {
-	let max = Number.MIN_VALUE;
-	for (let i = 0; i < companies.length; i++) {
-		for (let j = 0; j < companies[i].products.length; j++) {
-			if (companies[i].products[j].status == 'ACTIVE' && companies[i].products[j].price > max) {
-				max = companies[i].products[j].price;
-				console.log("getting max price ", max);
-			}
-		}
+function getAllActiveProducts(){
+	let productSet = [];
+	for (c of companies) {
+		productSet = productSet.concat(c.products)
 	}
-	return max;
+	return productSet.filter(x => x.status == 'ACTIVE');
+}
+
+function getMaxPrice() {
+	return getAllActiveProducts().reduce(function(max, cur) {
+	  if (Number(cur.price) > Number(max.price)) return cur;
+	  else return max;
+	}).price
 }
 
 function getMinPrice() {
-	let min = Number.MAX_VALUE;
-	for (let i = 0; i < companies.length; i++) {
-		for (let j = 0; j < companies[i].products.length; j++) {
-			if (companies[i].products[j].status == 'ACTIVE' && companies[i].products[j].price < min) {
-				min = companies[i].products[j].price;
-			}
-		}
-	}
-	return min;
+	return getAllActiveProducts().reduce(function(min, cur) {
+	  if (Number(cur.price) < Number(min.price)) return cur;
+	  else return min;
+	}).price
 }
