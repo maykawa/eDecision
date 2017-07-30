@@ -24,16 +24,20 @@ class Company {
 	}
 
 	getNumberOfActiveProducts() {
-		return this.products.filter((obj) => obj.status == 'ACTIVE').length
+		return this.products.filter(x => x.status == 'ACTIVE').length
 	}
 
 	calculateTotalProductRevenue() {
-		this.recentRevenue = 0;
-		for (let i = 0; i < this.products.length; i++) {
-			this.recentRevenue += this.products[i].calculateRevenue();
-			console.log(this.products[i].price, this.products[i].calculateRevenue());
+		let currentTake = 0;
+		let prodSet = this.products.filter(x => x.status == 'ACTIVE');
+		for (p of prodSet) {
+			let tmp = p.calculateRevenue();
+			currentTake += tmp;
+			console.log("rev ", p.price, tmp, currentTake);
 		}
+		this.recentRevenue = currentTake;
 	}
+
 	calculateTotalProductSpend() {
 		this.recentSpend = 0;
 		for (let i = 0; i < this.products.length; i++) {
@@ -43,9 +47,11 @@ class Company {
 			this.products[i].changed = false;
 		}
 	}
+
 	updateBooks() {
 		this.balance += (this.recentRevenue - this.recentSpend);
 	}
+
 	getCompanyStats() {
 		let stats = [];
 		stats.push("company: " + this.name);
@@ -63,9 +69,9 @@ class Company {
 	//TODO: figure out a way to eliminate dependencies
 	initializeProducts(targetField) {
 		if (targetField) {
-			for (let i = 0; i < this.products.length; i++) {
-				this.products[i].field = targetField;
-				this.products[i].initializeItem();
+			for (p of this.products) {
+				p.field = targetField;
+				p.initializeItem();
 			}
 		} else {
 			console.log("error - field is not set up for initialization");
@@ -76,7 +82,6 @@ class Company {
 	updateAllProductsToDatabase() {
 		for (this.pd of this.products) {
 			let pd = this.pd; //silly javascript...
-
 			let SQLstring;
 			if (pd.customer) {
 				SQLstring = "UPDATE products SET name = '" + pd.pname +
@@ -92,20 +97,15 @@ class Company {
 					", status = '" + pd.status +
 					"' WHERE id ='" + pd.id + "'";
 			}
-
 			queryModifyDb(SQLstring)
-				.then((tmp) => {
-					console.log('updated: ' + pd.pname);
-				})
+				.then(x => console.log('updated: ' + pd.pname))
 				.catch((error) => console.log(error));
 		}
 	}
 
 	addProductToDatabase(pd) {
-		//recieving pointer to the new product not yet in the database
-		//putting code her in case we need to update the company object in any way	
 		//database has a cost which is not supported in object, putting '0' as default cost.
-		//database does not accept a customer id that is out of bounds of key indexes, passing NULL for planned produts
+		//database does not accept a customer id that is out of bounds of key indexes, passing NULL for planned products
 		//FIXME: need to accomodate null values if we add product a different way that through the ProductAddInput buttons
 
 		let SQLstring = "INSERT INTO products (name, price, cost, status, customer_id, company_id) VALUES ('" +

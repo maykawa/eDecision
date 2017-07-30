@@ -54,11 +54,9 @@ function setup() {
 	switchBtn = createButton('switch player');
 	switchBtn.mousePressed(switchPlayers);
 
-	switchBtn = createButton('move ahead');
-	switchBtn.mousePressed(moveGameForward);
+	switchBtn = createButton('calculate revenue');
+	switchBtn.mousePressed(calRev);
 
-	switchBtn = createButton('update database');
-	switchBtn.mousePressed(updateDatabase);
 }
 
 

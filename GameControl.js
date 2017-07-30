@@ -1,5 +1,5 @@
 /*--------
-The Control object and associated game mechanics fucntions
+The Control object and associated game mechanics functions
 --------*/
 
 class GameControl {
@@ -24,49 +24,31 @@ class GameControl {
 		rectMode(CORNER);
 		rect(this.x, this.y, this.w, this.h);
 
-		//TODO:clean up for unintialized data on launch, currently handled with initialize button
 		let t = "scenario: " + this.scenarioID + " round: " + this.scenarioRound;
 
 		fill(0);
 		text(t, this.x + 10, this.y + 15);
 	}
 
-	moveCompanyForward(comp) {
-		// update database with my changes
-		//if successful move current company to next round
+	moveCompanyForward() {
+		//submit update for this company
 	    companyInFocus.updateAllProductsToDatabase();
-
-
-
 		
-		//check to see if everyone has posted
-		//manually??
+		//disable button, replace with "waiting for others to submit"
+		
+
+		//check to see if we are ready to calculate revenue
 		
 		
 		//if so pull down latest info and make our calculations
-		
-		
-		
-		
-		//disable button, replace with "waiting for others to submit"
-
-
-		//pull down new changes from other companies, yikes!!
 		// updateCompanies();???
-	
 	
 
 		//if we are ready, with all companies having same round, then calculate revenue		
 		// calculateRevenueForAll();
 		// calculateSpendForAll();
 
-
-
-
 		//if this company round and global round agree, enable submit button
-
-
-		console.log('moving company forward');
 	}
 	
 	advanceRound(company){
@@ -77,25 +59,20 @@ class GameControl {
 
 
 /*--------
-Temp game mechanics fucntions
+Temp game mechanics functions
 --------*/
 
 
-function updateDatabase(){
-	companyInFocus.updateAllProductsToDatabase();
-	control.advanceRound(companyInFocus);
-}
+
 
 function initializeXY() {	
-
 	field.setPriceRange(); //needs to be set prior to updating product coordinates
 	for (c of companies){
 		c.initializeProducts(field);  //update coordinates for products on all companies
 	}
 	
-
-	//figure out which company this user wants to be
-	//value set in first screen
+	//TODO: refactor initialization from game state and ownership
+	//value set on first screen
 	let tmp = parseInt(window.sessionStorage.getItem("eDecision.currentCompany"));
 	companyInFocus = getCompanyByID(tmp);
 	
@@ -106,24 +83,9 @@ function initializeXY() {
 }
 
 function switchPlayers() {
-	console.log('hit switch buttons');
-	//cycle through the companies array for now
 	let tmp = getCompanyIndex(companyInFocus.id) + 1;
-	if (tmp > companies.length - 1) {
-		tmp = 0;
-	}
+	if (tmp > companies.length - 1) tmp = 0; 
 	companyInFocus = companies[tmp];
-}
-
-function moveGameForward() {
-	//update all of the other companies's turns
-	//get this companies round
-	let t = companyInFocus.turn;
-	for (let i = 0; i < companies.length; i++){
-		if (companies[i].turn != t){
-			companies[i].turn = t;	
-		}
-	}
 }
 
 function updateCompanies() {
@@ -147,6 +109,22 @@ function calculateSpendForAll() {
 		companies[i].calculateTotalProductSpend();
 		console.log(companies[i].name + " spend " + companies[i].recentSpend);
 	}
+}
+
+//temp function to push all companies forward for testing
+function moveGameForward() {
+	//update all of the other companies's turns
+	//get this companies round
+	let t = companyInFocus.turn;
+	for (c of companies){
+		if (c.turn != t) c.turn = t;	
+	}
+}
+
+function calRev(){
+	companyInFocus.calculateTotalProductRevenue();
+	companyInFocus.updateBooks();
+	
 }
 
 

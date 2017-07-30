@@ -75,26 +75,13 @@ function getAllProductsInTier(custID, pmin, pmax) {
 }
 
 function getAllProductsInTier2(custID, pmin, pmax) {
-	//given a customer and tier range return # of products
-	let maxCount = 0;
-	for (let i = 0; i < companies.length; i++) {
-		for (let j = 0; j < companies[i].products.length; j++) {
-			let prod = companies[i].products[j];
-			if (prod.customer == custID && prod.status == 'ACTIVE' && prod.price >= pmin && prod.price <= pmax) {
-				maxCount++;
-			}
-		}
-	}
-	return maxCount;
+	let activeSet = getAllActiveProducts();
+	let custSet = activeSet.filter(x => (x.customer == custID && x.price >= pmin && x.price <= pmax));
+	return custSet.length;
 }
 
 function getPriceTierRange() {
-	//using a generic range across the entire set
-	// let max = getMaxPrice();
-	// let min = getMinPrice();
-	// let ran = max - min / 10; //magic number alert!! FIXME: should be change to customer specific value??
-	// console.log('range',ran);
-	// return ran / 2; //this provides upper and lower bound
+	return getMaxPrice() - getMinPrice();
 }
 
 function getAllActiveProducts(){

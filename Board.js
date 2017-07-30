@@ -70,7 +70,6 @@ class Board {
 	setPriceRange(){
 		this.maxPrice = Number(getMaxPrice()) + 10; //max price will default to 10 as side affect if get price is null
 		this.minPrice = 0; //default for now.
-		console.log("setting price range ", this.maxPrice, this.minPrice);
 	}
 
 	priceToPixels(pd) {
