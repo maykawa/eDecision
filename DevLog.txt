@@ -75,3 +75,6 @@ moving the queries to a promise structure, incorporating some higher order funct
 
 >>29 July 2017 <<
 Finally figured out promises structure and ansych loading. Moving code to GitHub to get comfortable there as well. 
+
+>>30 July 2017 <<
+Slowly getting the revuene calculation sorted out. Had trouble with javascript not sorting numbers correctly
