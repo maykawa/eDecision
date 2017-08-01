@@ -40,11 +40,11 @@ class Company {
 
 	calculateTotalProductSpend() {
 		this.recentSpend = 0;
-		for (let i = 0; i < this.products.length; i++) {
-			this.recentSpend += this.products[i].calculateSpend();
+		for (p of this.products){
+			this.recentSpend += p.calculateSpend();
 			//need to update product for next round, assumes we are moving to next round after this call
-			this.products[i].pStatus = this.products[i].status;
-			this.products[i].changed = false;
+			p.pStatus = p.status;
+			p.changed = false;
 		}
 	}
 
@@ -54,7 +54,8 @@ class Company {
 
 	getCompanyStats() {
 		let stats = [];
-		stats.push("company: " + this.name);
+		stats.push(this.name);
+	    stats.push("-----");
 		stats.push("active products: " + this.getNumberOfActiveProducts());
 		stats.push("prior revenue: " + this.recentRevenue.toFixed(2));
 		stats.push("prior spend: " + this.recentSpend.toFixed(2));
@@ -155,6 +156,7 @@ function setUpCompany(compID) {
 			companies.push(newco);
 			return newco;
 		})
+		.catch((error) => console.log(error));
 }
 
 function getProducts(newco) {
@@ -168,4 +170,5 @@ function getProducts(newco) {
 			}
 			return newco;
 		})
+		.catch((error) => console.log(error));
 }

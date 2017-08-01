@@ -46,10 +46,10 @@ function ProductAddInput(x, y, w, h) {
 
 function resetPlannedProductList(){
 	let place = 1;
-	for (let i = 0; i < companyInFocus.products.length; i++) {
-		if (companyInFocus.products[i].status == 'PLANNED') {
-			companyInFocus.products[i].xLoc = addArea.x + 20;
-			companyInFocus.products[i].yLoc = addArea.y + 20 + (20 * place);
+	for (p of companyInFocus.products){
+		if (p.status == 'PLANNED') {
+			p.xLoc = addArea.x + 20;
+			p.yLoc = addArea.y + 20 + (20 * place);
 			place++;
 		}
 	}

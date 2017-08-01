@@ -59,27 +59,6 @@ function getCustomerSize(custID) {
 Customer initalization functions
 --------*/
 
-// function setUpCustomers2() {
-// 	//TODO:eventually need to get the specific customers from the chosen companies
-//
-// 	let SQLstring = "SELECT * FROM customers";
-// 	queryDb(SQLstring)
-// 		.then((foundData) => {
-// 			let ca = JSON.parse(foundData);
-// 			if (ca) {
-// 				customers = []; //customer array is a global variable, so need to empty it
-// 				for (obj of ca) {
-// 					customers.push(new Customer(obj.name, obj.size, obj.id));
-// 				}
-// 			} else {
-// 				//TODO: what happens when no customers are present? Default to 1?
-// 				console.log("Error - no customers found");
-// 			}
-// 		})
-// 		.catch((error) => console.log(error));
-// }
-
-
 function setUpCustomers() {
 	//TODO:eventually need to get the specific customers from the chosen companies
 	let SQLstring = "SELECT * FROM customers";
@@ -91,4 +70,5 @@ function setUpCustomers() {
 				customers.push(new Customer(obj.name, obj.size, obj.id));
 			}
 		})
+		.catch((error) => console.log(error));
 }

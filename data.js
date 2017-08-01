@@ -56,25 +56,23 @@ function queryModifyDb(SQLString) {
 }
 
 
-
-
 //TODO: change the functions below to work with the database data directly?
 
-function getAllProductsInTier(custID, pmin, pmax) {
-	//given a customer and price return # of products
-	let maxCount = 0;
-	for (let i = 0; i < companies.length; i++) {
-		for (let j = 0; j < companies[i].products.length; j++) {
-			let prod = companies[i].products[j];
-			if (prod.customer == custID && prod.status == 'ACTIVE' && prod.price >= pmin && prod.price <= pmax) {
-				maxCount++;
-			}
-		}
-	}
-	return maxCount;
-}
+// function getAllProductsInTier2(custID, pmin, pmax) {
+// 	//given a customer and price return # of products
+// 	let maxCount = 0;
+// 	for (let i = 0; i < companies.length; i++) {
+// 		for (let j = 0; j < companies[i].products.length; j++) {
+// 			let prod = companies[i].products[j];
+// 			if (prod.customer == custID && prod.status == 'ACTIVE' && prod.price >= pmin && prod.price <= pmax) {
+// 				maxCount++;
+// 			}
+// 		}
+// 	}
+// 	return maxCount;
+// }
 
-function getAllProductsInTier2(custID, pmin, pmax) {
+function getAllProductsInTier(custID, pmin, pmax) {
 	let activeSet = getAllActiveProducts();
 	let custSet = activeSet.filter(x => (x.customer == custID && x.price >= pmin && x.price <= pmax));
 	return custSet.length;

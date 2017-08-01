@@ -63,8 +63,6 @@ Temp game mechanics functions
 --------*/
 
 
-
-
 function initializeXY() {	
 	field.setPriceRange(); //needs to be set prior to updating product coordinates
 	for (c of companies){

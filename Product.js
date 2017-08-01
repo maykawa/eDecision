@@ -134,18 +134,18 @@ class Product {
 	}
 
 	changeName(txt) {
-		//TODO: trap for bad input
-		this.pname = txt;
+		if (typeof txt === 'string' && txt != '') this.pname = txt;
+		else console.log("Error - problem with changing the name");
 	}
 
 	calculateRevenue() {
 		if (this.status == 'ACTIVE') {
 			let tmp = getPriceTierRange();
 			tmp = tmp / 10; //create default tiers
-			
+
 			//establish upper and lower bounds
-			let pmin = this.price - (tmp/2);
-			let pmax = this.price + (tmp/2);
+			let pmin = this.price - (tmp / 2);
+			let pmax = this.price + (tmp / 2);
 
 			//find number of products in this tier and total number of customers available
 			let num = getAllProductsInTier(this.customer, pmin, pmax);
@@ -155,7 +155,7 @@ class Product {
 			//TODO: fix customer share calculation
 			//missing step is share of total customers at this tier
 			return (vol / num) * this.price;
-			
+
 		} else {
 			//this is where we could put revenue and costs for planned or retired products
 			return 0;

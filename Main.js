@@ -29,8 +29,8 @@ function setup() {
 
 	canvasElement = createCanvas(windowWidth - 100, windowHeight - 50);
 	setUpGUIAreas(); //bounding boxes for each areas
-	
-	
+
+
 	//set up the main objects
 	inputField = new textFieldInput(50, 500); //input field for small dialogs
 	control = new GameControl(ledgerbb.x, ledgerbb.y + ledgerbb.h - 100, ledgerbb.w, 45);
@@ -49,7 +49,7 @@ function setup() {
 		.then(() => setUpCustomers())
 		.then(() => initializeXY());
 
-	
+
 	//god functions	
 	switchBtn = createButton('switch player');
 	switchBtn.mousePressed(switchPlayers);
@@ -137,29 +137,29 @@ function draw() {
 	companyInfo.display(); //ledger field
 	control.display();
 
-	//need to draw products last to make sure they are displayed on top		
-	for (let j = 0; j < companies.length; j++) {
-		for (let i = 0; i < companies[j].products.length; i++) {
-			companies[j].products[i].display();
+	//need to draw products last to make sure they are displayed on top	
+	for (c of companies){
+		for (p of c.products){
+			p.display();
 		}
-	}
+	}		
 }
 
 function mousePressed() {
-	for (let i = 0; i < companyInFocus.products.length; i++) {
-		companyInFocus.products[i].mouseClick(mouseX, mouseY);
-	}
+	for (p of companyInFocus.products) {
+		p.mouseClick(mouseX, mouseY);
+	}	
 }
 
 function mouseDragged() {
-	for (let i = 0; i < companyInFocus.products.length; i++) {
-		companyInFocus.products[i].mouseDrag(mouseX, mouseY);
+	for (p of companyInFocus.products) {
+		p.mouseDrag(mouseX, mouseY);
 	}
 }
 
 function mouseReleased() {
-	for (let i = 0; i < companyInFocus.products.length; i++) {
-		companyInFocus.products[i].mouseRelease();
+	for (p of companyInFocus.products) {
+		p.mouseRelease();
 	}
 }
 
