@@ -134,8 +134,16 @@ class Product {
 	}
 
 	changeName(txt) {
-		if (typeof txt === 'string' && txt != '') this.pname = txt;
-		else console.log("Error - problem with changing the name");
+		if (typeof txt === 'string' && txt != '') {
+			this.pname = txt;
+			this.modifyNameInDatabase(txt);
+		} else console.log("Error - problem with changing the name");
+	}
+
+	modifyNameInDatabase(str) {
+		let SQLstring = "UPDATE products SET name = '"+ str +"' WHERE id = " + this.id;
+		queryModifyDb(SQLstring)
+			.catch((error) => console.log(error));
 	}
 
 	calculateRevenue() {

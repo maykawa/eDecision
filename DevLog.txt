@@ -78,3 +78,6 @@ Finally figured out promises structure and ansych loading. Moving code to GitHub
 
 >>30 July 2017 <<
 Slowly getting the revuene calculation sorted out. Had trouble with javascript not sorting numbers correctly
+
+>>31 July 2017 << 
+revenue calculation seems to be working correctly, now on to turn taking logic
