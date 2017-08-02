@@ -14,8 +14,7 @@ class GameControl {
 
 		this.button = createButton('submit turn');
 		this.button.position(this.x + 8, this.y + 22);
-		this.button.mousePressed(this.moveCompanyForward);
-
+		this.button.mousePressed(moveCompanyForward);
 	}
 
 	display() {
@@ -25,37 +24,50 @@ class GameControl {
 		rect(this.x, this.y, this.w, this.h);
 
 		let t = "scenario: " + this.scenarioID + " round: " + this.scenarioRound;
-
 		fill(0);
 		text(t, this.x + 10, this.y + 15);
-	}
-
-	moveCompanyForward() {
-		//submit update for this company
-	    companyInFocus.updateAllProductsToDatabase();
-		
-		//disable button, replace with "waiting for others to submit"
-		
-
-		//check to see if we are ready to calculate revenue
-		
-		
-		//if so pull down latest info and make our calculations
-		// updateCompanies();???
-	
-
-		//if we are ready, with all companies having same round, then calculate revenue		
-		// calculateRevenueForAll();
-		// calculateSpendForAll();
-
-		//if this company round and global round agree, enable submit button
 	}
 	
 	advanceRound(company){
 		company.turn++;
 	}
+	
+	disableButton(){
+		this.button.elt.innerHTML = "waiting for others...";
+		this.button.elt.disabled = "true";
+
+	}
+	
+	enableButton(){
+		this.button.elt.innerHTML = "submit turn";
+		this.button.elt.disabled = "false";
+	}
 
 }
+
+
+function moveCompanyForward() {
+	//submit update for this company
+    companyInFocus.updateAllProductsToDatabase();
+
+	//disable button, replace with "waiting for others to submit"
+	control.disableButton();
+
+
+	//check to see if we are ready to calculate revenue
+
+
+	//if so pull down latest info and make our calculations
+	// updateCompanies();???
+
+
+	//if we are ready, with all companies having same round, then calculate revenue		
+	// calculateRevenueForAll();
+	// calculateSpendForAll();
+
+	//if this company round and global round agree, enable submit button
+}
+
 
 
 /*--------
@@ -68,6 +80,9 @@ function initializeXY() {
 	for (c of companies){
 		c.initializeProducts(field);  //update coordinates for products on all companies
 	}
+	//set cordinates for products outside of the field
+	addArea.placePlannedProducts();
+	retireArea.placeRetiredProducts();
 	
 	//TODO: refactor initialization from game state and ownership
 	//value set on first screen
@@ -87,25 +102,23 @@ function switchPlayers() {
 }
 
 function updateCompanies() {
-	for (let i = 0; i < companies.length; i++) {
-		companies[i].updateBooks();
-		companies[i].updateDatabase();
+	for (c of companies){
+		c.updateBooks();
+		c.updateDatabase();
 	}
 }
 
 function calculateRevenueForAll() {
-	//go through each player and count revenue for each active product
-	for (let i = 0; i < companies.length; i++) {
-		companies[i].calculateTotalProductRevenue();
-		console.log(companies[i].name + " make " + companies[i].recentRevenue);
+	for (c of companies){
+		c.calculateTotalProductRevenue();
+		console.log(c.name + " make " + c.recentRevenue);
 	}
 }
 
 function calculateSpendForAll() {
-	//go through each player and count the spend for each product
-	for (let i = 0; i < companies.length; i++) {
-		companies[i].calculateTotalProductSpend();
-		console.log(companies[i].name + " spend " + companies[i].recentSpend);
+	for (c of companies){
+		c.calculateTotalProductSpend();
+		console.log(c.name + " spend " + c.recentSpend);
 	}
 }
 
@@ -122,7 +135,6 @@ function moveGameForward() {
 function calRev(){
 	companyInFocus.calculateTotalProductRevenue();
 	companyInFocus.updateBooks();
-	
 }
 
 

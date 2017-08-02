@@ -113,7 +113,7 @@ class Company {
 			pd.pname + "', '" + pd.price + "', '0', '" + pd.status + "', NULL, '" + this.id + "')";
 
 		queryModifyDb(SQLstring)
-			.then(companyInFocus.getProductIdFromDatabase(pd))
+			.then((x) => companyInFocus.getProductIdFromDatabase(pd))
 			.catch((error) => console.log(error));
 	}
 

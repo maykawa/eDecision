@@ -22,5 +22,16 @@ class ProductRetireArea {
 		text("Retired", this.x + 7, this.y + 13);
 	}
 	
-	//TODO: need to add a list manager like in the planning area object
+	placeRetiredProducts() {
+		for (c of companies) {
+			let place = 1;
+			for (p of c.products) {
+				if (p.status == 'RETIRED') {
+					p.xLoc = this.x + 20;
+					p.yLoc = this.y + 20 + (20 * place);
+					place++;
+				}
+			}
+		}
+	}
 }

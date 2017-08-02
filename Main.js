@@ -27,7 +27,7 @@ var TXTSIZE = 13;
 
 function setup() {
 
-	canvasElement = createCanvas(windowWidth - 100, windowHeight - 50);
+	canvasElement = createCanvas(windowWidth, windowHeight - 50);
 	setUpGUIAreas(); //bounding boxes for each areas
 
 
@@ -51,6 +51,8 @@ function setup() {
 
 
 	//god functions	
+	createP("");
+		
 	switchBtn = createButton('switch player');
 	switchBtn.mousePressed(switchPlayers);
 
