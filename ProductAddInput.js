@@ -20,9 +20,8 @@ function ProductAddInput(x, y, w, h) {
 		companyInFocus.products.push(newProd);
 
 		//update local locations of planned products into a list
-		//TODO: not sure if this is necessary
 		resetPlannedProductList();
-		
+
 		//add new product to the database now rather than in overall update, this sets the id for the product asap
 		companyInFocus.addProductToDatabase(newProd);
 	}
@@ -42,11 +41,25 @@ function ProductAddInput(x, y, w, h) {
 		textStyle(BOLD);
 		text("Planned", this.x + 7, this.y + 13);
 	}
+
+	this.placePlannedProducts = function() {
+		for (c of companies) {
+			let place = 1;
+			for (p of c.products) {
+				if (p.status == 'PLANNED') {
+					p.xLoc = this.x + 20;
+					p.yLoc = this.y + 20 + (20 * place);
+					place++;
+				}
+			}
+		}
+	}
+
 }
 
-function resetPlannedProductList(){
+function resetPlannedProductList() {
 	let place = 1;
-	for (p of companyInFocus.products){
+	for (p of companyInFocus.products) {
 		if (p.status == 'PLANNED') {
 			p.xLoc = addArea.x + 20;
 			p.yLoc = addArea.y + 20 + (20 * place);
@@ -54,4 +67,3 @@ function resetPlannedProductList(){
 		}
 	}
 }
-
